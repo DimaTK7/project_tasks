@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 ## REGISTER ##
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
+//Route::middleware(['auth'])->group(function () {
     ## LOGOUT ##
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     ## PROJECT ##
@@ -28,4 +28,4 @@ Route::middleware(['auth'])->group(function () {
         return view('layouts.index');
     });
 
-});
+//});
