@@ -15,9 +15,11 @@
                 <td>{{$project->name}}</td>
                 <td class="text-right py-0 align-middle">
                     <div class="btn-group btn-group-sm">
-                        <a href="{{route('project.edit', $project->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                        {{Form::open(['route'=>['project.destroy', $project->id],'method'=>'delete'])}}
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        <a href="{{route('project.edit', $project->id)}}" class="btn btn-info">Изменить</a>
+                        {{Form::open(['route'=>['project.destroy', $project->id], 'style' => 'width: 35px;', 'method'=>'delete'])}}
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
                         {{Form::close()}}
                     </div>
                 </td>

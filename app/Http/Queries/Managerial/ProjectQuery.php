@@ -10,4 +10,9 @@ class ProjectQuery
     {
         return Projects::paginate(10);
     }
+
+    public function one($id)
+    {
+        return Projects::find($id);
+    }
 }

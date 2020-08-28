@@ -21,8 +21,10 @@ class ProjectsController extends Controller
         $this->projectServices = $projectServices;
         $this->flashMassageServices = $flashMassageServices;
     }
+
     /**
      * Получить список проектов в файле вида
+     * @param  ProjectQuery $query список проектов
      */
     public function index(ProjectQuery $query)
     {
@@ -50,12 +52,12 @@ class ProjectsController extends Controller
 
     /**
      * Страница редактирования проекта
-     *
+     * @param ProjectQuery $query получить проект
      * @param  int  $id ключ
      */
-    public function edit($id)
+    public function edit(ProjectQuery $query, $id)
     {
-        //
+        return view('managerial.projects.edit', ['project' => $query->one($id)]);
     }
 
     /**
@@ -66,7 +68,8 @@ class ProjectsController extends Controller
      */
     public function update(ProjectRequest $request, $id)
     {
-        //
+        $this->projectServices->update($id, $request->all());
+        return redirect(route('project.index'));
     }
 
     /**
@@ -76,6 +79,7 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->projectServices->delete($id);
+        return redirect(route('project.index'));
     }
 }
