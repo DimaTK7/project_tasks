@@ -13,10 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.index');
-});
-
+## REGISTER ##
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+    ## LOGOUT ##
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    ## PROJECT ##
+    Route::resource('/project', 'ProjectsController')->except(['show']);
+    ## PROJECT ##
+    Route::resource('/task', 'TasksController')->except(['show']);
+    ## MAIN VIEW ##
+    Route::get('/', function () {
+        return view('layouts.index');
+    });
+
+});
