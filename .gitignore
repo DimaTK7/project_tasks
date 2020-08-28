@@ -13,3 +13,4 @@ yarn-error.log
 .idea
 # Project exclude paths
 /storage/
+/resources/asset
