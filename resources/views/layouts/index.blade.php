@@ -9,11 +9,11 @@
 
     <!-- Main Sidebar Container -->
     @include('layouts.blocks.sidebar')
-
+    <div class="content-wrapper">
     <!-- Content Wrapper. Contains page content -->
     @yield('content')
     <!-- /.content-wrapper -->
-
+    </div>
     <!-- Footer -->
     @include('layouts.footer')
 </div>

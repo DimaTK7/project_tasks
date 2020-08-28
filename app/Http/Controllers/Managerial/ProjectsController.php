@@ -3,57 +3,55 @@
 namespace App\Http\Controllers\Managerial;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Queries\Managerial\ProjectQuery;
+use App\Http\Requests\Managerial\ProjectRequest;
+use App\Http\Services\Helpers\FlashMassageServices;
+use App\Http\Services\Managerial\ProjectServices;
 
 class ProjectsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $projectServices;
+    private $flashMassageServices;
+
+    public function __construct(
+        ProjectServices $projectServices,
+        FlashMassageServices $flashMassageServices
+    )
     {
-        //
+        $this->projectServices = $projectServices;
+        $this->flashMassageServices = $flashMassageServices;
+    }
+    /**
+     * Получить список проектов в файле вида
+     */
+    public function index(ProjectQuery $query)
+    {
+        return view('managerial.projects.list', ['projects' => $query->get()]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Страница создания проекта
      */
     public function create()
     {
-        //
+        return view('managerial.projects.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Запись проекта в БД
+     * @param  ProjectRequest $request валидация данных
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        //
+        $this->projectServices->create($request->all());
+        $this->flashMassageServices->setSuccessSavedState();
+        return redirect(route('project.create'));
     }
 
     /**
-     * Display the specified resource.
+     * Страница редактирования проекта
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id ключ
      */
     public function edit($id)
     {
@@ -61,22 +59,20 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновляем данные и записываем в ДБ
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  ProjectRequest  $request валидация данных
+     * @param  int  $id ключ
      */
-    public function update(Request $request, $id)
+    public function update(ProjectRequest $request, $id)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление проета с БД
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id ключ
      */
     public function destroy($id)
     {

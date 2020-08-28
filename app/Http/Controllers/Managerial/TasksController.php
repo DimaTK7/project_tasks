@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Managerial;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Managerial\TaskRequest;
+use App\Http\Services\Managerial\TaskServices;
 
 class TasksController extends Controller
 {
+    private $services;
+    public function __construct(TaskServices $services)
+    {
+        $this->services = $services;
+    }
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Получить список задач в файле вида
      */
     public function index()
     {
@@ -18,42 +22,28 @@ class TasksController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Страница создания задачи
      */
     public function create()
     {
-        //
+        return view('managerial.projects.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Запись задачи в БД
+     * @param  TaskRequest $request валидация данных
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        //
+        $this->services->create($request->all());
+        $this->flashMassageServices->setSuccessSavedState();
+        return redirect(route('task.create'));
     }
 
     /**
-     * Display the specified resource.
+     * Страница редактирования задачи
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id ключ
      */
     public function edit($id)
     {
@@ -61,22 +51,20 @@ class TasksController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновляем данные и записываем в ДБ
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  TaskRequest  $request валидация данных
+     * @param  int  $id ключ
      */
-    public function update(Request $request, $id)
+    public function update(TaskRequest $request, $id)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление задачи с БД
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id ключ
      */
     public function destroy($id)
     {

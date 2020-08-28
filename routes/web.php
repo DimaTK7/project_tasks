@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 ## REGISTER ##
 Auth::routes();
+## LOGOUT ##
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-//Route::middleware(['auth'])->group(function () {
-    ## LOGOUT ##
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::namespace('Managerial')->middleware(['auth'])->group(function () {
     ## PROJECT ##
     Route::resource('/project', 'ProjectsController')->except(['show']);
     ## PROJECT ##
@@ -28,4 +28,4 @@ Auth::routes();
         return view('layouts.index');
     });
 
-//});
+});
