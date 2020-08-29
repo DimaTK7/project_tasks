@@ -4,20 +4,10 @@ namespace App\Http\Queries\Managerial;
 
 use App\Model\Managerial\Projects;
 
-class ProjectQuery
+class ProjectQuery extends AbstractQuery
 {
-    public function get()
+    public function __construct(Projects $tasks)
     {
-        return Projects::paginate(10);
-    }
-
-    public function one($id)
-    {
-        return Projects::find($id);
-    }
-
-    public function all()
-    {
-        return Projects::all();
+        parent::__construct($tasks);
     }
 }

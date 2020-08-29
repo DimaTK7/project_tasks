@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.managerial.index')
 
 @section('content')
     @if(session('successUpdate'))

@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.managerial.index')
 
 @section('content')
     <div class="card card-secondary">

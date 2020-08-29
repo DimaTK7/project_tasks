@@ -12,44 +12,31 @@ class ProjectsController extends Controller
 {
     private $projectServices;
     private $flashMassageServices;
+    private $projectQuery;
 
     public function __construct(
         ProjectsService $projectServices,
-        FlashMassageService $flashMassageServices
+        FlashMassageService $flashMassageServices,
+        ProjectQuery $projectQuery
     )
     {
         $this->projectServices = $projectServices;
         $this->flashMassageServices = $flashMassageServices;
+        $this->projectQuery =$projectQuery;
     }
 
-    /**
-     * Project list
-     *
-     * @param  ProjectQuery $query
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-
-    public function index(ProjectQuery $query)
+    public function index()
     {
-        return view('managerial.projects.list', ['projects' => $query->get()]);
+        return view('managerial.projects.list', [
+            'projects' => $this->projectQuery->get()
+        ]);
     }
 
-    /**
-     * Create project
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function create()
     {
         return view('managerial.projects.create');
     }
 
-    /**
-     * Add project in database
-     *
-     * @param  ProjectRequest $request validate data
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function store(ProjectRequest $request)
     {
         $this->projectServices->create($request->all());
@@ -57,25 +44,13 @@ class ProjectsController extends Controller
         return redirect(route('project.create'));
     }
 
-    /**
-     * Change project
-     *
-     * @param ProjectQuery $query get project
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit(ProjectQuery $query, $id)
+    public function edit(int $id)
     {
-        return view('managerial.projects.edit', ['project' => $query->one($id)]);
+        return view('managerial.projects.edit', [
+            'project' => $this->projectQuery->one($id)
+        ]);
     }
 
-    /**
-     * Update data in database
-     *
-     * @param  ProjectRequest  $request validate data
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function update(ProjectRequest $request, $id)
     {
         $this->flashMassageServices->setSuccessUpdateState();
@@ -83,12 +58,6 @@ class ProjectsController extends Controller
         return redirect(route('project.index'));
     }
 
-    /**
-     *  Delete data with database
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function destroy($id)
     {
         $this->projectServices->delete($id);

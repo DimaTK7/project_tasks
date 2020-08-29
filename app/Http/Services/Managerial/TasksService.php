@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Storage;
 
 class TasksService
 {
-
-    public function create(array $fields, $file)
+    public function create(array $data)
     {
-       $task = new Tasks();
-       $task->fill($fields);
-       if ($file) $task->file = $this->uploadFile($file);
-       $task->save();
+        $task = Tasks::create($data);
+
+           if (isset($data['file'])) {
+               $task->file = $this->uploadFile($data['file']);
+               $task->save();
+           }
     }
 
-    public function update($id, array $fields, $file)
+    public function update(int $id, array $data)
     {
-        $task = Tasks::find($id);
-        $task->fill($fields);
-        if ($file){
+        $task = Tasks::find($id)->fill($data);
+        if (isset($data['file'])) {
             $this->removeFile($task->file);
-            $task->file = $this->uploadFile($file);
+            $task->file = $this->uploadFile($data['file']);
+            $task->save();
         }
-        $task->save();
     }
 
     public function delete($id)
@@ -35,7 +35,7 @@ class TasksService
 
     public function uploadFile($file)
     {
-        if($file == null) { return false; }
+        if ($file == null) { return false; }
 
         $fileName = Str::random(10) . '.' . $file->extension();
         $file->storeAs('public', $fileName);
@@ -44,8 +44,7 @@ class TasksService
 
     public function removeFile($file)
     {
-        if($file != null)
-        {
+        if ($file != null) {
             Storage::delete('public/' . $file);
         }
     }

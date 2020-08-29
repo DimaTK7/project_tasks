@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class TasksStatus extends Enum
 {
-    const New = 'new';
-    const Progress = 'progress';
-    const Done = 'done';
+    const NEW = 'new';
+    const PROGRESS = 'progress';
+    const DONE = 'done';
 }

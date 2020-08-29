@@ -14,103 +14,66 @@ class TasksController extends Controller
 {
     private $taskServices;
     private $flashMassageServices;
+    private $taskQuery;
+    private $projectQuery;
 
     public function __construct(
         TasksService $taskServices,
-        FlashMassageService $flashMassageServices
+        FlashMassageService $flashMassageServices,
+        TaskQuery $taskQuery,
+        ProjectQuery $projectQuery
     )
     {
         $this->taskServices = $taskServices;
         $this->flashMassageServices = $flashMassageServices;
+        $this->taskQuery = $taskQuery;
+        $this->projectQuery = $projectQuery;
     }
 
-    /**
-     * Task list
-     *
-     * @param  TaskQuery $query
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(TaskQuery $query)
+    public function index()
     {
-        return view('managerial.tasks.list', ['tasks' => $query->get()]);
+        return view('managerial.tasks.list', [
+            'tasks' => $this->taskQuery->get()
+        ]);
     }
 
-    /**
-     * Create task
-     *
-     * @param ProjectQuery $query get projects
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create(ProjectQuery $query)
+    public function create()
     {
         return view('managerial.tasks.create', [
-            'projects' => $query->all(),
+            'projects' => $this->projectQuery->all(),
             'status' =>  TasksStatus::toArray(),
             ]);
     }
 
-    /**
-     * Add task in database
-     *
-     * @param  TaskRequest $request validate data
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function store(TaskRequest $request)
     {
-        $this->taskServices->create($request->all(), $request->file('file'));
+        $this->taskServices->create($request->all());
         $this->flashMassageServices->setSuccessSavedState();
         return redirect(route('task.create'));
     }
 
-    /**
-     * Change task
-     *
-     * @param TaskQuery $taskQuery get task
-     * @param ProjectQuery $projectQuery get projects
-     * @param  int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit(TaskQuery $taskQuery, ProjectQuery $projectQuery, $id)
+    public function edit(int $id)
     {
         return view('managerial.tasks.edit', [
-            'task' => $taskQuery->one($id),
-            'projects' => $projectQuery->all(),
+            'task' => $this->taskQuery->one($id),
+            'projects' => $this->projectQuery->all(),
             'status' =>  TasksStatus::toArray(),
         ]);
     }
 
-    /**
-     * Update data in database
-     *
-     * @param  TaskRequest  $request validate data
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(TaskRequest $request, $id)
+    public function update(TaskRequest $request,int $id)
     {
+        $this->taskServices->update($id, $request->all());
         $this->flashMassageServices->setSuccessUpdateState();
-        $this->taskServices->update($id, $request->all(), $request->file('file'));
         return redirect(route('task.index'));
     }
 
-    /**
-     * Delete data with database
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $this->taskServices->delete($id);
         return redirect(route('task.index'));
     }
 
-    /**
-     * Download file
-     *
-     * @param $name
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
     public function downloadFile($name)
     {
        return response()->download("storage/$name");

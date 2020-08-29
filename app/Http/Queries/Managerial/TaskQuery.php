@@ -4,20 +4,10 @@ namespace App\Http\Queries\Managerial;
 
 use App\Model\Managerial\Tasks;
 
-class TaskQuery
+class TaskQuery extends AbstractQuery
 {
-    public function get()
+    public function __construct(Tasks $tasks)
     {
-        return Tasks::paginate(10);
-    }
-
-    public function one($id)
-    {
-        return Tasks::find($id);
-    }
-
-    public function all()
-    {
-        return Tasks::all();
+        parent::__construct($tasks);
     }
 }

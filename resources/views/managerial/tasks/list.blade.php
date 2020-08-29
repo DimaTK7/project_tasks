@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.managerial.index')
 
 @section('content')
     <div class="card-body p-0">
@@ -28,7 +28,7 @@
                             <a href="{{route('task.edit', $task->id)}}" class="btn btn-info">Изменить</a>
                             {{Form::open(['route'=>['task.destroy', $task->id], 'style' => 'width: 35px;', 'method'=>'delete'])}}
                             <button class="btn btn-danger btn-sm">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="fas fa-trash"></i>
                             </button>
                             {{Form::close()}}
                         </div>
