@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Queries\Managerial\ProjectQuery;
 use App\Http\Queries\Managerial\TaskQuery;
 use App\Http\Requests\Managerial\TaskRequest;
-use App\Http\Services\Helpers\FlashMassageServices;
-use App\Http\Services\Managerial\TaskServices;
+use App\Http\Services\Helpers\FlashMassageService;
+use App\Http\Services\Managerial\TasksService;
 
 class TasksController extends Controller
 {
@@ -16,8 +16,8 @@ class TasksController extends Controller
     private $flashMassageServices;
 
     public function __construct(
-        TaskServices $taskServices,
-        FlashMassageServices $flashMassageServices
+        TasksService $taskServices,
+        FlashMassageService $flashMassageServices
     )
     {
         $this->taskServices = $taskServices;
@@ -25,8 +25,10 @@ class TasksController extends Controller
     }
 
     /**
-     * Получить список проектов в файле вида
-     * @param  TaskQuery $query список проектов
+     * Task list
+     *
+     * @param  TaskQuery $query
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(TaskQuery $query)
     {
@@ -34,8 +36,10 @@ class TasksController extends Controller
     }
 
     /**
-     * Страница создания проекта
-     * @param ProjectQuery $query получаем все проекты
+     * Create task
+     *
+     * @param ProjectQuery $query get projects
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(ProjectQuery $query)
     {
@@ -46,47 +50,69 @@ class TasksController extends Controller
     }
 
     /**
-     * Запись проекта в БД
-     * @param  TaskRequest $request валидация данных
+     * Add task in database
+     *
+     * @param  TaskRequest $request validate data
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(TaskRequest $request)
     {
-        $this->taskServices->create($request->all());
+        $this->taskServices->create($request->all(), $request->file('file'));
         $this->flashMassageServices->setSuccessSavedState();
         return redirect(route('task.create'));
     }
 
     /**
-     * Страница редактирования проекта
-     * @param TaskQuery $query получить проект
-     * @param  int  $id ключ
+     * Change task
+     *
+     * @param TaskQuery $taskQuery get task
+     * @param ProjectQuery $projectQuery get projects
+     * @param  int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(TaskQuery $query, $id)
+    public function edit(TaskQuery $taskQuery, ProjectQuery $projectQuery, $id)
     {
-        return view('managerial.task.edit', ['task' => $query->one($id)]);
+        return view('managerial.tasks.edit', [
+            'task' => $taskQuery->one($id),
+            'projects' => $projectQuery->all(),
+            'status' =>  TasksStatus::toArray(),
+        ]);
     }
 
     /**
-     * Обновляем данные и записываем в ДБ
+     * Update data in database
      *
-     * @param  TaskRequest  $request валидация данных
-     * @param  int  $id ключ
+     * @param  TaskRequest  $request validate data
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(TaskRequest $request, $id)
     {
         $this->flashMassageServices->setSuccessUpdateState();
-        $this->taskServices->update($id, $request->all());
+        $this->taskServices->update($id, $request->all(), $request->file('file'));
         return redirect(route('task.index'));
     }
 
     /**
-     * Удаление проета с БД
+     * Delete data with database
      *
-     * @param  int  $id ключ
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         $this->taskServices->delete($id);
         return redirect(route('task.index'));
+    }
+
+    /**
+     * Download file
+     *
+     * @param $name
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadFile($name)
+    {
+       return response()->download("storage/$name");
     }
 }

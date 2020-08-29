@@ -23,6 +23,7 @@ Route::namespace('Managerial')->middleware(['auth'])->group(function () {
     Route::resource('/project', 'ProjectsController')->except(['show']);
     ## PROJECT ##
     Route::resource('/task', 'TasksController')->except(['show']);
+    Route::get('/downloadFile/{name}', 'TasksController@downloadFile')->name('downloadFile');
     ## MAIN VIEW ##
     Route::get('/', function () {
         return view('layouts.index');

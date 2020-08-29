@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Managerial;
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Managerial\ProjectQuery;
 use App\Http\Requests\Managerial\ProjectRequest;
-use App\Http\Services\Helpers\FlashMassageServices;
-use App\Http\Services\Managerial\ProjectServices;
+use App\Http\Services\Helpers\FlashMassageService;
+use App\Http\Services\Managerial\ProjectsService;
 
 class ProjectsController extends Controller
 {
@@ -14,8 +14,8 @@ class ProjectsController extends Controller
     private $flashMassageServices;
 
     public function __construct(
-        ProjectServices $projectServices,
-        FlashMassageServices $flashMassageServices
+        ProjectsService $projectServices,
+        FlashMassageService $flashMassageServices
     )
     {
         $this->projectServices = $projectServices;
@@ -23,16 +23,21 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Получить список проектов в файле вида
-     * @param  ProjectQuery $query список проектов
+     * Project list
+     *
+     * @param  ProjectQuery $query
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+
     public function index(ProjectQuery $query)
     {
         return view('managerial.projects.list', ['projects' => $query->get()]);
     }
 
     /**
-     * Страница создания проекта
+     * Create project
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -40,8 +45,10 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Запись проекта в БД
-     * @param  ProjectRequest $request валидация данных
+     * Add project in database
+     *
+     * @param  ProjectRequest $request validate data
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(ProjectRequest $request)
     {
@@ -51,9 +58,11 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Страница редактирования проекта
-     * @param ProjectQuery $query получить проект
-     * @param  int  $id ключ
+     * Change project
+     *
+     * @param ProjectQuery $query get project
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(ProjectQuery $query, $id)
     {
@@ -61,10 +70,11 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Обновляем данные и записываем в ДБ
+     * Update data in database
      *
-     * @param  ProjectRequest  $request валидация данных
-     * @param  int  $id ключ
+     * @param  ProjectRequest  $request validate data
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update(ProjectRequest $request, $id)
     {
@@ -74,9 +84,10 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Удаление проета с БД
+     *  Delete data with database
      *
-     * @param  int  $id ключ
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function destroy($id)
     {

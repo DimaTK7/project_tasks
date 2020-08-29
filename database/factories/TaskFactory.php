@@ -10,7 +10,7 @@ $factory->define(Tasks::class, function (Faker $faker) {
 
     return [
         'title' => $faker->name,
-        'status' => TasksStatus::getRandomValue()+1,
+        'status' => TasksStatus::getRandomValue(),
         'description' => $faker->sentence(15),
         'project_id' => function() {
             return factory(Projects::class)->create()->id;
