@@ -27,7 +27,6 @@
                         <a href="{{route('project.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Список</p>
-                            <span class="badge badge-info right">6</span>
                         </a>
                     </li>
                 </ul>
@@ -52,13 +51,16 @@
                         <a href="{{route('task.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Список</p>
-                            <span class="badge badge-info right">6</span>
                         </a>
                     </li>
                 </ul>
             </li>
-
-            <li class="nav-header">MISCELLANEOUS</li>
+            <li class="nav-item">
+                <a href="{{route('logout')}}" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>Список пользователей</p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{route('logout')}}" class="nav-link">
                     <i class="nav-icon far fa-circle text-danger"></i>

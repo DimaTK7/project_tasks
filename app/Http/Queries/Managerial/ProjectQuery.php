@@ -15,4 +15,9 @@ class ProjectQuery
     {
         return Projects::find($id);
     }
+
+    public function all()
+    {
+        return Projects::all();
+    }
 }

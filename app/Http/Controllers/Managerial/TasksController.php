@@ -2,52 +2,68 @@
 
 namespace App\Http\Controllers\Managerial;
 
+use App\Enums\TasksStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Queries\Managerial\ProjectQuery;
+use App\Http\Queries\Managerial\TaskQuery;
 use App\Http\Requests\Managerial\TaskRequest;
+use App\Http\Services\Helpers\FlashMassageServices;
 use App\Http\Services\Managerial\TaskServices;
 
 class TasksController extends Controller
 {
-    private $services;
-    public function __construct(TaskServices $services)
+    private $taskServices;
+    private $flashMassageServices;
+
+    public function __construct(
+        TaskServices $taskServices,
+        FlashMassageServices $flashMassageServices
+    )
     {
-        $this->services = $services;
-    }
-    /**
-     * Получить список задач в файле вида
-     */
-    public function index()
-    {
-        //
+        $this->taskServices = $taskServices;
+        $this->flashMassageServices = $flashMassageServices;
     }
 
     /**
-     * Страница создания задачи
+     * Получить список проектов в файле вида
+     * @param  TaskQuery $query список проектов
      */
-    public function create()
+    public function index(TaskQuery $query)
     {
-        return view('managerial.projects.create');
+        return view('managerial.tasks.list', ['tasks' => $query->get()]);
     }
 
     /**
-     * Запись задачи в БД
+     * Страница создания проекта
+     * @param ProjectQuery $query получаем все проекты
+     */
+    public function create(ProjectQuery $query)
+    {
+        return view('managerial.tasks.create', [
+            'projects' => $query->all(),
+            'status' =>  TasksStatus::toArray(),
+            ]);
+    }
+
+    /**
+     * Запись проекта в БД
      * @param  TaskRequest $request валидация данных
      */
     public function store(TaskRequest $request)
     {
-        $this->services->create($request->all());
+        $this->taskServices->create($request->all());
         $this->flashMassageServices->setSuccessSavedState();
         return redirect(route('task.create'));
     }
 
     /**
-     * Страница редактирования задачи
-     *
+     * Страница редактирования проекта
+     * @param TaskQuery $query получить проект
      * @param  int  $id ключ
      */
-    public function edit($id)
+    public function edit(TaskQuery $query, $id)
     {
-        //
+        return view('managerial.task.edit', ['task' => $query->one($id)]);
     }
 
     /**
@@ -58,16 +74,19 @@ class TasksController extends Controller
      */
     public function update(TaskRequest $request, $id)
     {
-        //
+        $this->flashMassageServices->setSuccessUpdateState();
+        $this->taskServices->update($id, $request->all());
+        return redirect(route('task.index'));
     }
 
     /**
-     * Удаление задачи с БД
+     * Удаление проета с БД
      *
      * @param  int  $id ключ
      */
     public function destroy($id)
     {
-        //
+        $this->taskServices->delete($id);
+        return redirect(route('task.index'));
     }
 }

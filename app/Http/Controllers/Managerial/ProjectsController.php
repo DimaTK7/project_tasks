@@ -68,6 +68,7 @@ class ProjectsController extends Controller
      */
     public function update(ProjectRequest $request, $id)
     {
+        $this->flashMassageServices->setSuccessUpdateState();
         $this->projectServices->update($id, $request->all());
         return redirect(route('project.index'));
     }

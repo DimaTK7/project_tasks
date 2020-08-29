@@ -26,6 +26,6 @@ mix.scripts([
 
 ], 'public/js/admin.js');
 
-mix.copy('resources/asset/dist/img', 'public/dist/img');
+mix.copy('resources/asset/dist/img/AdminLTELogo.png', 'public/dist/img/AdminLTELogo.png');
 mix.copy('resources/asset/plugins/fontawesome-free/webfonts', 'public/webfonts');
 

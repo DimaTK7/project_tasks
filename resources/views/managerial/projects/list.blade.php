@@ -1,6 +1,9 @@
 @extends('layouts.index')
 
 @section('content')
+    @if(session('successUpdate'))
+        @include('helpers.updateSuccess')
+    @endif
     <div class="card-body p-0">
         <table class="table">
             <thead>

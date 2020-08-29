@@ -1,4 +1,5 @@
 {
     "/css/admin.css": "/css/admin.css",
-    "/js/admin.js": "/js/admin.js"
+    "/js/admin.js": "/js/admin.js",
+    "/dist/img/AdminLTELogo.png": "/dist/img/AdminLTELogo.png"
 }

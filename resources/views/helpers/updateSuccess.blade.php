@@ -3,6 +3,6 @@
         <div class="toast-header">
             <strong class="mr-auto">Сообщение:</strong>
         </div>
-        <div class="toast-body">Операция обновления прошла успешно</div>
+        <div class="toast-body">Данные успешно изменены</div>
     </div>
 </div>
