@@ -31,14 +31,6 @@
                     <p>Готовые</p>
                 </a>
             </li>
-            @if(\Illuminate\Support\Facades\Auth::check())
-            <li class="nav-item">
-                <a href="{{route('taskDone')}}" class="nav-link">
-                    <i class="nav-icon far fa-circle text-danger"></i>
-                    <p>Мои задачи</p>
-                </a>
-            </li>
-            @endif
         </ul>
     </nav>
     <!-- /.sidebar -->
