@@ -8,7 +8,7 @@ use App\Http\Requests\Managerial\ProjectRequest;
 use App\Http\Services\Helpers\FlashMassageService;
 use App\Http\Services\Managerial\ProjectsService;
 
-class ProjectsController extends Controller
+class ProjectController extends Controller
 {
     private $projectServices;
     private $flashMassageServices;

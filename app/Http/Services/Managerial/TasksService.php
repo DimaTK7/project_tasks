@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Managerial;
 
-use App\Model\Managerial\Tasks;
+use App\Model\Managerial\Task;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,7 +10,7 @@ class TasksService
 {
     public function create(array $data)
     {
-        $task = Tasks::create($data);
+        $task = Task::create($data);
 
            if (isset($data['file'])) {
                $task->file = $this->uploadFile($data['file']);
@@ -20,7 +20,7 @@ class TasksService
 
     public function update(int $id, array $data)
     {
-        $task = Tasks::find($id)->fill($data);
+        $task = Task::find($id)->fill($data);
         if (isset($data['file'])) {
             $this->removeFile($task->file);
             $task->file = $this->uploadFile($data['file']);
@@ -30,7 +30,7 @@ class TasksService
 
     public function delete($id)
     {
-        return Tasks::find($id)->delete();
+        return Task::find($id)->delete();
     }
 
     public function uploadFile($file)

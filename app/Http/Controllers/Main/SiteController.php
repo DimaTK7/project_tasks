@@ -68,4 +68,11 @@ class SiteController extends Controller
             'projects' => $this->projectQuery->get()
         ]);
     }
+
+    public function myTasks(int $id)
+    {
+        return view('site.task', [
+            'tasks' => $this->taskQuery->get()
+        ]);
+    }
 }

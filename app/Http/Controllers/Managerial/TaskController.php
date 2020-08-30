@@ -10,7 +10,7 @@ use App\Http\Requests\Managerial\TaskRequest;
 use App\Http\Services\Helpers\FlashMassageService;
 use App\Http\Services\Managerial\TasksService;
 
-class TasksController extends Controller
+class TaskController extends Controller
 {
     private $taskServices;
     private $flashMassageServices;

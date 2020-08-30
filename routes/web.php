@@ -22,11 +22,11 @@ Route::middleware(['auth'])->group(function () {
     ## MANAGERIAL ##
     Route::namespace('Managerial')->group(function () {
         ## PROJECT ##
-        Route::resource('/project', 'ProjectsController')->except(['show']);
+        Route::resource('/project', 'ProjectController')->except(['show']);
         ## TASK ##
-        Route::resource('/task', 'TasksController')->except(['show']);
+        Route::resource('/task', 'TaskController')->except(['show']);
         ## USER ##
-        Route::get('/user', 'UsersController')->name('users');
+        Route::get('/user', 'UserController')->name('users');
         #
         Route::get('/managerial', function () {
             return view('layouts.managerial.index'); })->name('managerial');
