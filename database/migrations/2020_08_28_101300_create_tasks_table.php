@@ -19,8 +19,10 @@ class CreateTasksTable extends Migration
             $table->enum('status', TasksStatus::getValues());
             $table->text('description')->nullable();
             $table->string('file')->nullable();
-            $table->integer('project_id');
+            $table->unsignedBigInteger('project_id');
             $table->timestamps();
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 
