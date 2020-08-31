@@ -21,7 +21,7 @@
                 <label>Статус</label>
                 <select class="form-control" name="status">
                     @foreach($status as $key => $value)
-                        <option value="{{$value}}">{{$key}}</option>"
+                        <option @if($value == $task->status) selected @endif value="{{$value}}">{{$key}}</option>"
                     @endforeach
                 </select>
             </div>
@@ -29,7 +29,7 @@
                 <label>Проект</label>
                 <select class="form-control" name="project_id">
                     @foreach($projects as $project)
-                        <option value="{{$project->id}}">{{$project->name}}</option>
+                        <option @if($project->id == $task->project_id) selected @endif value="{{$project->id}}">{{$project->name}}</option>
                     @endforeach
                 </select>
             </div>

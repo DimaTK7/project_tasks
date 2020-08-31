@@ -20,7 +20,9 @@ class TasksService
 
     public function update(int $id, array $data)
     {
-        $task = Task::find($id)->fill($data);
+        $task = Task::find($id);
+        $task->update($data);
+
         if (isset($data['file'])) {
             $this->removeFile($task->file);
             $task->file = $this->uploadFile($data['file']);
