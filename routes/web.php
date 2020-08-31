@@ -44,4 +44,4 @@ Route::namespace('Main')->group(function () {
 });
 
 ##DOWNLOAD##
-Route::get('/downloadFile/{name}', 'Managerial\TasksController@downloadFile')->name('downloadFile');
+Route::get('/downloadFile/{name}', 'Managerial\TaskController@downloadFile')->name('downloadFile');
