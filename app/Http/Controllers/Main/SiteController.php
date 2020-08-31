@@ -27,24 +27,10 @@ class SiteController extends Controller
         ]);
     }
 
-    public function taskNew()
+    public function taskList(int $id, string $status)
     {
         return view('site.task', [
-            'tasks' => $this->taskQuery->new()
-        ]);
-    }
-
-    public function taskProgress()
-    {
-        return view('site.task', [
-            'tasks' => $this->taskQuery->progress()
-        ]);
-    }
-
-    public function taskDone()
-    {
-        return view('site.task', [
-            'tasks' => $this->taskQuery->done()
+            'tasks' => $this->taskQuery->status($id, $status)
         ]);
     }
 
@@ -55,13 +41,6 @@ class SiteController extends Controller
         ]);
     }
 
-    public function taskList(int $id, string $status)
-    {
-        return view('site.task', [
-            'tasks' => $this->taskQuery->status($id, $status)
-        ]);
-    }
-
     public function projectShow()
     {
         return view('site.project', [
@@ -69,10 +48,4 @@ class SiteController extends Controller
         ]);
     }
 
-    public function myTasks(int $id)
-    {
-        return view('site.task', [
-            'tasks' => $this->taskQuery->get()
-        ]);
-    }
 }

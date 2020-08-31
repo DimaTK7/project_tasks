@@ -13,24 +13,6 @@
                     <p>Список проектов</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{route('taskNew')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Новые</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{route('taskProgress')}}" class="nav-link">
-                    <i class="nav-icon far fa-circle text-warning"></i>
-                    <p>В процессе</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{route('taskDone')}}" class="nav-link">
-                    <i class="nav-icon far fa-circle text-info"></i>
-                    <p>Готовые</p>
-                </a>
-            </li>
         </ul>
     </nav>
     <!-- /.sidebar -->

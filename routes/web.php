@@ -37,9 +37,6 @@ Route::namespace('Main')->group(function () {
     ## MAIN ##
     Route::get('/', 'SiteController@index')->name('main');
     ## TASK ##
-    Route::get('/task/new', 'SiteController@taskNew')->name('taskNew');
-    Route::get('/task/progress', 'SiteController@taskProgress')->name('taskProgress');
-    Route::get('/task/done', 'SiteController@taskDone')->name('taskDone');
     Route::get('/task/show/{id}', 'SiteController@taskShow')->name('taskShow');
     Route::get('/task/list/{id}/{status}', 'SiteController@taskList')->name('taskList');
     ## PROJECT ##
