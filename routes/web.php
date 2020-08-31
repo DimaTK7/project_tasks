@@ -33,15 +33,18 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-## MAIN ##
-Route::get('/', 'Main\SiteController@index')->name('main');
-## TASK ##
-Route::get('/task/new', 'Main\SiteController@taskNew')->name('taskNew');
-Route::get('/task/progress', 'Main\SiteController@taskProgress')->name('taskProgress');
-Route::get('/task/done', 'Main\SiteController@taskDone')->name('taskDone');
-Route::get('/task/show/{id}', 'Main\SiteController@taskShow')->name('taskShow');
-Route::get('/task/list/{id}/{status}', 'Main\SiteController@taskList')->name('taskList');
-## PROJECT ##
-Route::get('/project/show', 'Main\SiteController@projectShow')->name('projectShow');
+Route::namespace('Main')->group(function () {
+    ## MAIN ##
+    Route::get('/', 'SiteController@index')->name('main');
+    ## TASK ##
+    Route::get('/task/new', 'SiteController@taskNew')->name('taskNew');
+    Route::get('/task/progress', 'SiteController@taskProgress')->name('taskProgress');
+    Route::get('/task/done', 'SiteController@taskDone')->name('taskDone');
+    Route::get('/task/show/{id}', 'SiteController@taskShow')->name('taskShow');
+    Route::get('/task/list/{id}/{status}', 'SiteController@taskList')->name('taskList');
+    ## PROJECT ##
+    Route::get('/project/show', 'SiteController@projectShow')->name('projectShow');
+});
+
 ##DOWNLOAD##
 Route::get('/downloadFile/{name}', 'Managerial\TasksController@downloadFile')->name('downloadFile');
