@@ -4,13 +4,13 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <!-- Navbar -->
-@include('layouts.admin.blocks.navbar')
-<!-- /.navbar -->
+    @include('layouts.admin.blocks.navbar')
+    <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     @include('layouts.admin.blocks.sidebar')
     <div class="content-wrapper">
-        <!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content -->
     @yield('content')
     <!-- /.content-wrapper -->
     </div>

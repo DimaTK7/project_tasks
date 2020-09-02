@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\Managerial\ProjectQuery;
-use App\Http\Queries\Managerial\TaskQuery;
+use App\Http\Queries\Admin\ProjectQuery;
+use App\Http\Queries\Admin\TaskQuery;
 
 class SiteController extends Controller
 {

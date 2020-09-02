@@ -2,8 +2,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Enums\TasksStatus;
-use App\Model\Managerial\Project;
-use App\Model\Managerial\Task;
+use App\Model\Admin\Project;
+use App\Model\Admin\Task;
 use Faker\Generator as Faker;
 
 $factory->define(Task::class, function (Faker $faker) {

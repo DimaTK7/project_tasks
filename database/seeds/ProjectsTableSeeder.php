@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Model\Managerial\Project;
+use App\Model\Admin\Project;
 
 class ProjectsTableSeeder extends Seeder
 {

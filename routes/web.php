@@ -19,8 +19,8 @@ Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    ## MANAGERIAL ##
-    Route::namespace('Managerial')->group(function () {
+    ## ADMIN ##
+    Route::namespace('Admin')->group(function () {
         ## PROJECT ##
         Route::resource('/project', 'ProjectController')->except(['show']);
         ## TASK ##
@@ -28,8 +28,8 @@ Route::middleware(['auth'])->group(function () {
         ## USER ##
         Route::get('/user', 'UserController')->name('users');
         #
-        Route::get('/managerial', function () {
-            return view('layouts.managerial.index'); })->name('managerial');
+        Route::get('/admin', function () {
+            return view('layouts.admin.index'); })->name('admin');
     });
 });
 
@@ -44,4 +44,4 @@ Route::namespace('Main')->group(function () {
 });
 
 ##DOWNLOAD##
-Route::get('/downloadFile/{name}', 'Managerial\TaskController@downloadFile')->name('downloadFile');
+Route::get('/downloadFile/{name}', 'Admin\TaskController@downloadFile')->name('downloadFile');
