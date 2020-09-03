@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Services\Localization\LocalizationService;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,8 +32,12 @@ Route::middleware(['auth'])->group(function () {
             return view('layouts.admin.index'); })->name('admin');
     });
 });
-
-Route::namespace('Main')->group(function () {
+$r =
+Route::group([
+    'prefix' => LocalizationService::locale(),
+    'middleware' => 'setLocale',
+    'namespace' => 'Main',
+], function () {
     ## MAIN ##
     Route::get('/', 'SiteController@index')->name('main');
     ## TASK ##
@@ -45,3 +49,7 @@ Route::namespace('Main')->group(function () {
 
 ##DOWNLOAD##
 Route::get('/downloadFile/{name}', 'Admin\TaskController@downloadFile')->name('downloadFile');
+
+##LANGUAGE##
+Route::get("/{lang}", function ()
+{   redirect()->back(); })->name('language');

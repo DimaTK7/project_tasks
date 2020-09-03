@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Model\Admin\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,6 +13,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 5)->create();
+     //   factory(User::class, 5)->create();
+
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'root@root.ua',
+            'email_verified_at' => now(),
+            'password' => bcrypt('passadmin'),
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

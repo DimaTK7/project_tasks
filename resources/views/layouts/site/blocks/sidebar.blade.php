@@ -10,7 +10,7 @@
             <li class="nav-item">
                 <a href="{{route('main')}}" class="nav-link">
                     <i class="nav-icon fas fa-table"></i>
-                    <p>Список проектов</p>
+                    <p>@lang('app.List_of_projects')</p>
                 </a>
             </li>
         </ul>
