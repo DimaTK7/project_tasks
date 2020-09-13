@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 ## REGISTER ##
 Auth::routes();
 ## LOGOUT ##
@@ -45,3 +34,5 @@ Route::namespace('Main')->group(function () {
 
 ##DOWNLOAD##
 Route::get('/downloadFile/{name}', 'Admin\TaskController@downloadFile')->name('downloadFile');
+
+Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');

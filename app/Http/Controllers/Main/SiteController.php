@@ -21,8 +21,7 @@ class SiteController extends Controller
 
     public function index()
     {
-
-        return view('site.index',[
+        return view('site.index', [
             'projects' => $this->projectQuery->get()
         ]);
     }
@@ -47,5 +46,4 @@ class SiteController extends Controller
             'projects' => $this->projectQuery->get()
         ]);
     }
-
 }

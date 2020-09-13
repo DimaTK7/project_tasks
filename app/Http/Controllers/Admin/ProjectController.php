@@ -7,6 +7,7 @@ use App\Http\Queries\Admin\ProjectQuery;
 use App\Http\Requests\Admin\ProjectRequest;
 use App\Http\Services\Helpers\FlashMassageService;
 use App\Http\Services\Admin\ProjectsService;
+use App\Jobs\SendMessage;
 
 class ProjectController extends Controller
 {
@@ -26,6 +27,7 @@ class ProjectController extends Controller
 
     public function index()
     {
+        SendMessage::dispatch('ProjectController@Index');
         return view('admin.projects.list', [
             'projects' => $this->projectQuery->get()
         ]);
