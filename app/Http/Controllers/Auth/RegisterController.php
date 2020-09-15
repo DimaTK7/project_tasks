@@ -53,7 +53,7 @@ class RegisterController extends Controller
                 ->with('error', 'Sorry your link cannot be identified');
         }
 
-        if ($user->status !== User::STATUS_WAIT){
+        if ($user->status !== User::STATUS_WAIT) {
             return redirect()->route('login')
                 ->with('error', 'Your email is already verified');
         }
