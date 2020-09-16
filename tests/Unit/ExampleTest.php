@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
      * @group dd
      * @return void
      */
-    public function openMainPageTest()
+    public function testMainPageTest()
     {
         $response = $this->get(route('main'));
         $response->assertStatus(200);
