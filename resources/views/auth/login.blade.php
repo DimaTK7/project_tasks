@@ -16,8 +16,8 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @if(isset($error)) {{$error}} @endif
-                                @if(isset($success)) {{$error}} @endif
+                                @if(Session::has('error')) {{Session::get('error')}} @endif
+                                @if(Session::has('success')) {{Session::get('success')}} @endif
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
