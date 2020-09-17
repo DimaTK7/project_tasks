@@ -8,18 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
-
     /**
      * A basic test example.
      *
-     * @group dd
      * @return void
      */
-    public function testMainPageTest()
+    public function testBasicTest()
     {
-        $response = $this->get(route('main'));
-        $response->assertStatus(200);
+        $this->assertTrue(true);
     }
 }
