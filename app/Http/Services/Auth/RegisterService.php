@@ -20,12 +20,12 @@ class RegisterService
         $this->dispatcher = $dispatcher;
     }
 
-    public function register(RegisterRequest $request): void
+    public function register($data): void
     {
         $user = User::register(
-            $request['name'],
-            $request['email'],
-            $request['password']
+            $data['name'],
+            $data['email'],
+            $data['password']
         );
 
         $this->mailer->to($user->email)->send(new VerifyMail($user));
