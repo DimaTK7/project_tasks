@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\ProjectQuery;
 use App\Http\Queries\Admin\TaskQuery;
+use Illuminate\Support\Facades\Session;
 
 class SiteController extends Controller
 {

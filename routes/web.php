@@ -2,16 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Services\Localization\LocalizationService;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Session;
 
 ## REGISTER ##
 Auth::routes();
@@ -32,10 +23,10 @@ Route::middleware(['auth'])->group(function () {
             return view('layouts.admin.index'); })->name('admin');
     });
 });
-$r =
+
 Route::group([
-    'prefix' => LocalizationService::locale(),
-    'middleware' => 'setLocale',
+   // 'prefix' => LocalizationService::locale(),
+   // 'middleware' => 'setLocale',
     'namespace' => 'Main',
 ], function () {
     ## MAIN ##
@@ -51,5 +42,7 @@ Route::group([
 Route::get('/downloadFile/{name}', 'Admin\TaskController@downloadFile')->name('downloadFile');
 
 ##LANGUAGE##
-Route::get("/{lang}", function ()
-{   redirect()->back(); })->name('language');
+Route::post('/locale', function(){
+    session(['my_locale' => Request::Input('locale')]);
+    return redirect()->back();
+});
