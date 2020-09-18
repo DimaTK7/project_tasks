@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\ProjectQuery;
 use App\Http\Queries\Admin\TaskQuery;
+use App\Model\Admin\User;
+use App\Model\Role;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -21,7 +24,6 @@ class SiteController extends Controller
 
     public function index()
     {
-
         return view('site.index',[
             'projects' => $this->projectQuery->get()
         ]);
