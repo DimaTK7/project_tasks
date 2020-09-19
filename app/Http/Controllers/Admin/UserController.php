@@ -10,7 +10,7 @@ class UserController extends Controller
     public function __invoke()
     {
         return view('admin.users.index', [
-            'users' => User::paginate(10)
+            'users' => User::paginate(12)
         ]);
     }
 
