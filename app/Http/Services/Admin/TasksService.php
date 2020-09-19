@@ -12,10 +12,10 @@ class TasksService
     {
         $task = Task::create($data);
 
-           if (isset($data['file'])) {
-               $task->file = $this->uploadFile($data['file']);
-               $task->save();
-           }
+        if (isset($data['file'])) {
+            $task->file = $this->uploadFile($data['file']);
+            $task->save();
+        }
     }
 
     public function update(int $id, array $data)
