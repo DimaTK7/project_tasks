@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddUserVerification extends Migration
 {
@@ -12,6 +13,10 @@ class AddUserVerification extends Migration
             $table->string('status', 16)->after('password');
             $table->string('verify_token')->nullable()->unique()->after('status');
         });
+
+        DB::table('users')->update([
+           'status' => 'active',
+        ]);
     }
 
     public function down()
