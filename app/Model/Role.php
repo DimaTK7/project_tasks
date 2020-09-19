@@ -9,17 +9,12 @@ class Role extends Model
 {
     public function user()
     {
-        return $this->belongsToMany(
-            User::class,
-            'role_user',
-            'role_id',
-            'user_id'
-        );
+        return $this->belongsToMany(User::class);
     }
 
     public function isAdmin()
     {
-
+        return true;
     }
 
     public function isModerator()

@@ -6,6 +6,7 @@ use App\Model\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 /**
@@ -21,6 +22,8 @@ class User extends Authenticatable
 
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
+    public const ADMIN = 'admin';
+
 
     protected $fillable = [
         'name', 'email', 'password', 'status', 'verify_token',
@@ -79,11 +82,11 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsToMany(
-            Role::class,
-            'role_user',
-            'user_id',
-            'role_id'
-        );
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return true;
     }
 }
