@@ -8,6 +8,7 @@
                 <th>Имя</th>
                 <th>Email</th>
                 <th>Статус</th>
+                <th>Роль</th>
             </tr>
             </thead>
             <tbody>
@@ -16,6 +17,7 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->status}}</td>
+                <td>{{$user->role}}</td>
             </tr>
             @endforeach
             </tbody>

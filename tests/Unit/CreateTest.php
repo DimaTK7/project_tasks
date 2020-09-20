@@ -13,8 +13,8 @@ class CreateTest extends TestCase
     public function testNew(): void
     {
         $user = User::new(
-            $name = 'name',
-            $email = 'email'
+            $name = 'name2',
+            $email = 'email2'
         );
 
         self::assertNotEmpty($user);
@@ -23,6 +23,7 @@ class CreateTest extends TestCase
         self::assertEquals($email, $user->email);
         self::assertNotEmpty($user->password);
 
-        self::assertFalse($user->isActive());
+        self::assertTrue($user->isActive());
+        self::assertFalse($user->isAdmin());
     }
 }
