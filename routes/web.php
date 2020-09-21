@@ -9,7 +9,7 @@ Auth::routes();
 ## LOGOUT ##
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'can:admin-panel'])->group(function () {
     ## ADMIN ##
     Route::namespace('Admin')->group(function () {
         ## PROJECT ##
@@ -40,6 +40,8 @@ Route::group([
 
 ##DOWNLOAD##
 Route::get('/downloadFile/{name}', 'Admin\TaskController@downloadFile')->name('downloadFile');
+
+Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 ##LANGUAGE##
 Route::post('/locale', function(){

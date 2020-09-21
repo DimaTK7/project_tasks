@@ -7,6 +7,8 @@
             <tr>
                 <th>Имя</th>
                 <th>Email</th>
+                <th>Статус</th>
+                <th>Роль</th>
             </tr>
             </thead>
             <tbody>
@@ -14,9 +16,12 @@
             <tr>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
+                <td>{{$user->status}}</td>
+                <td>{{$user->role}}</td>
             </tr>
             @endforeach
             </tbody>
         </table>
+        {{$users->render()}}
     </div>
 @endsection
