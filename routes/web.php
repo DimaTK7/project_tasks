@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Services\Localization\LocalizationService;
 use Illuminate\Support\Facades\Session;
+use App\Http\Middleware\Language;
 
 ## REGISTER ##
 Auth::routes();
