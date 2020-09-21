@@ -7,7 +7,7 @@ Auth::routes();
 ## LOGOUT ##
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:web-developer'])->group(function () {
     ## ADMIN ##
     Route::namespace('Admin')->group(function () {
         ## PROJECT ##

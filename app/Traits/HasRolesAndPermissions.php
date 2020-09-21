@@ -15,46 +15,56 @@ trait HasRolesAndPermissions
         return $this->belongsToMany(Role::class, 'users_roles');
     }
 
+    /**
+     * Связываем таблицу users через промежуточную users_permissions c таблицей permissions
+     */
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'users_permissions');
     }
 
     /**
-     * @param string $roles
-     * @return bool
-     *
      * Проверяем есть ли у пользователя роль по связи через промежуточную таблтцу
      * users -> users_roles -> roles
      */
     public function hasRole($roles)
     {
-        foreach ($roles as $role) {
-            if ($this->roles->contains('slug', $role)) {
-                return true;
-            }
+        if ($this->roles->contains('slug', $roles)) {
+            return true;
         }
         return false;
     }
 
-    public function hasPermission($permission)
-    {
-        return (bool) $this->permissions->where('slug', $permission)->count();
-    }
-
+    /**
+     * Проверяет права пользователя
+     * есть ли у Пользователя Права напрямую или через Роль
+     */
     public function hasPermissionTo($permission)
     {
         return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
     }
 
+    /**
+     *  Проверяем есль ли в ролял правела
+     *  roles -> roles_permission -> permission
+     */
     public function hasPermissionThroughRole($permission)
     {
         foreach ($permission->roles as $role) {
-            if ($this->roles->contains($role)) {
+            if ($this->roles->contains('slug', $role->slug)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Проверяет права пользователя  на прямую
+     * через промежуточную таблицу users_permissions
+     */
+    public function hasPermission($permission): bool
+    {
+        return $this->permissions->contains('slug', $permission->slug);
     }
 
     public function getAllPermissions(array $permissions)
@@ -73,20 +83,13 @@ trait HasRolesAndPermissions
         return $this;
     }
 
-    /**
-     * @param mixed ...$permissions
-     * @return $this
-     */
     public function deletePermissions($permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
         $this->permissions()->detach($permissions);
         return $this;
     }
-    /**
-     * @param mixed ...$permissions
-     * @return HasRolesAndPermissions
-     */
+
     public function refreshPermissions($permissions)
     {
         $this->permissions()->detach();
