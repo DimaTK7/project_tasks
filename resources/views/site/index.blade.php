@@ -23,4 +23,15 @@
         </table>
         {{$projects->render()}}
     </div>
+
+
+
+    @role('project-manager')
+    Project Manager Panel
+    @endrole
+
+    @role(‘web-developer’)
+    Web Developer Panel
+    @endrole
+
 @endsection

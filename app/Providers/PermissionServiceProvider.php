@@ -2,15 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use App\Model\Permission;
 use Illuminate\Support\Facades\Gate;
 
-class AppServiceProvider extends ServiceProvider
+class PermissionServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -20,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
@@ -36,13 +35,5 @@ class AppServiceProvider extends ServiceProvider
             report($e);
             return false;
         }
-
-        Blade::directive('role', function ($role){
-            return "<?php if(auth()->check() && auth()->user()->hasRole({$role})) :";
-        });
-
-        Blade::directive('endrole', function ($role){
-            return "<?php endif; ?>";
-        });
     }
 }

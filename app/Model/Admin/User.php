@@ -2,12 +2,10 @@
 
 namespace App\Model\Admin;
 
-use App\Model\Role;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Traits\HasRolesAndPermissions;
 
 /**
  * @property int id
@@ -18,16 +16,13 @@ use Illuminate\Support\Str;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRolesAndPermissions;
 
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
 
-    public const ROLE_USER = 'user';
-    public const ROLE_ADMIN = 'admin';
-
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'verify_token', 'role'
+        'name', 'email', 'password', 'status', 'verify_token'
     ];
 
     protected $hidden = [
@@ -81,19 +76,4 @@ class User extends Authenticatable
         ]);
     }
 
-    public function changeRole($role): void
-    {
-        if (!\in_array($role, [self::ROLE_USER, self::ROLE_ADMIN], true)) {
-            throw new \InvalidArgumentException('Undefined role ' . $role);
-        }
-        if ($this->role === $role) {
-            throw new \DomainException('Role is already assigned');
-        }
-        $this->update(['role' => $role]);
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === self::ROLE_ADMIN;
-    }
 }

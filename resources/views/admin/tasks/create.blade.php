@@ -57,11 +57,9 @@
             @error('file')
             <p class="text-danger p-error">{{$message}}</p>
             @enderror
-            @can('admin-panel')
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Добавить</button>
             </div>
-            @endcan
             {{Form::close()}}
         </div>
         <!-- /.card-body -->
