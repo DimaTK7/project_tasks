@@ -34,8 +34,8 @@ class LoginController extends Controller
         }
 
         $authenticate = Auth::attempt(
-          $request->only(['email', 'password']),
-          $request->filled('remember')
+            $request->only(['email', 'password']),
+            $request->filled('remember')
         );
 
         if ($authenticate) {

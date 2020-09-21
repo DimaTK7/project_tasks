@@ -25,8 +25,7 @@ Route::middleware(['auth', 'can:admin-panel'])->group(function () {
 });
 
 Route::group([
-   // 'prefix' => LocalizationService::locale(),
-   // 'middleware' => 'setLocale',
+    'middleware' => 'language',
     'namespace' => 'Main',
 ], function () {
     ## MAIN ##

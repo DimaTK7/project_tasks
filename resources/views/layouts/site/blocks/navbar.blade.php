@@ -7,12 +7,15 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{route('admin')}}" class="nav-link">@lang('app.Administration')</a>
         </li>
-        <form class="" action="{{url('/locale')}}" method="post">
+        <form class="nav-link" action="{{url('/locale')}}" method="post">
             @csrf
-            Locale:
-            <select class="" name="locale" onchange="this.form.submit()">
-                <option value="en" >English</option>
-                <option value="ru" >Russian</option>
-            </select>
+            <input type="hidden" value="en" name="locale">
+            <button type="submit" class="btn btn-block btn-default btn-xs">English</button>
         </form>
+        <form class="nav-link" action="{{url('/locale')}}" method="post">
+            @csrf
+            <input type="hidden" value="ru" name="locale">
+            <button type="submit" class="btn btn-block btn-default btn-xs">Русский</button>
+        </form>
+    </ul>
 </nav>

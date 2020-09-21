@@ -47,5 +47,4 @@ class SiteController extends Controller
             'projects' => $this->projectQuery->get()
         ]);
     }
-
 }
