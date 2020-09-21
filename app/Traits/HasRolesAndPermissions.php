@@ -7,6 +7,9 @@ use App\Model\Role;
 
 trait HasRolesAndPermissions
 {
+    /**
+     * Связываем таблицу users через промежуточную users_roles c таблицей roles
+     */
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'users_roles');
@@ -17,7 +20,14 @@ trait HasRolesAndPermissions
         return $this->belongsToMany(Permission::class, 'users_permissions');
     }
 
-    public function hasRole(... $roles )
+    /**
+     * @param string $roles
+     * @return bool
+     *
+     * Проверяем есть ли у пользователя роль по связи через промежуточную таблтцу
+     * users -> users_roles -> roles
+     */
+    public function hasRole($roles)
     {
         foreach ($roles as $role) {
             if ($this->roles->contains('slug', $role)) {
@@ -49,10 +59,10 @@ trait HasRolesAndPermissions
 
     public function getAllPermissions(array $permissions)
     {
-        return Permission::whereIn('slug',$permissions)->get();
+        return Permission::whereIn('slug', $permissions)->get();
     }
 
-    public function givePermissionsTo(... $permissions)
+    public function givePermissionsTo($permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
         if($permissions === null) {
@@ -67,7 +77,7 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return $this
      */
-    public function deletePermissions(... $permissions )
+    public function deletePermissions($permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
         $this->permissions()->detach($permissions);
@@ -77,7 +87,7 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return HasRolesAndPermissions
      */
-    public function refreshPermissions(... $permissions )
+    public function refreshPermissions($permissions)
     {
         $this->permissions()->detach();
         return $this->givePermissionsTo($permissions);

@@ -24,14 +24,11 @@
         {{$projects->render()}}
     </div>
 
-
-
-    @role('project-manager')
+    @role(['project-manager','dghgdh'])
     Project Manager Panel
     @endrole
 
-    @role(‘web-developer’)
+    @role(['web-developer'])
     Web Developer Panel
     @endrole
-
 @endsection

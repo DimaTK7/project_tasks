@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\ProjectQuery;
 use App\Http\Queries\Admin\TaskQuery;
 use App\Model\Admin\User;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -22,12 +23,12 @@ class SiteController extends Controller
 
     public function index()
     {
-        $user = User::find(137);
+        $user = Auth::user();
 //        var_dump($user->hasRole('web-developer')); //вернёт true
 //        var_dump($user->hasRole('project-manager')); //вернёт false
 //       // var_dump($user->givePermissionsTo('web-developer'));
 //        var_dump($user->hasPermission('manage-users')); //вернёт true
-        dd($user->can('manage-users')); // вернёт true
+       dd($user->can('web-developer')); // вернёт true
 //        dd();
         return view('site.index', [
             'projects' => $this->projectQuery->get()
