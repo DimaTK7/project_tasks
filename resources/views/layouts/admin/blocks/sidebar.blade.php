@@ -56,6 +56,42 @@
                 </ul>
             </li>
             <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Роли и правила
+                        <i class="fas fa-angle-left right"></i>
+
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('role.create')}}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p>Создать роль</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('role.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p>Список ролей</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('permission.create')}}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Создать правило</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('permission.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Список правил</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('users')}}" class="nav-link">
                     <i class="nav-icon fas fa-table"></i>
                     <p>Список пользователей</p>

@@ -27,6 +27,7 @@ class ProjectController extends Controller
 
     public function index()
     {
+        // TODO: додеать очередь
         SendMessage::dispatch('ProjectController@Index');
         return view('admin.projects.list', [
             'projects' => $this->projectQuery->get()

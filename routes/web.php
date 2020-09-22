@@ -20,6 +20,12 @@ Route::middleware(['auth', 'role:web-developer'])->group(function () {
         Route::get('/admin', function () {
             return view('layouts.admin.index'); })->name('admin');
     });
+    Route::namespace('Role')->group(function () {
+        ## ROLE ##
+        Route::resource('/role', 'RoleController')->except(['show']);
+        ## PERMISSION ##
+        Route::resource('/permission', 'PermissionController')->except(['show']);
+    });
 });
 
 Route::namespace('Main')->group(function () {

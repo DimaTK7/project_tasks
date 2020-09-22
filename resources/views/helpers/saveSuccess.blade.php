@@ -3,6 +3,6 @@
         <div class="toast-header">
             <strong class="mr-auto">Сообщение:</strong>
         </div>
-        <div class="toast-body">Сохранения прошло успешно</div>
+        <div class="toast-body">Сохранение прошло успешно</div>
     </div>
 </div>
