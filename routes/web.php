@@ -7,15 +7,15 @@ Auth::routes();
 ## LOGOUT ##
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::middleware(['auth', 'role:web-developer'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     ## ADMIN ##
     Route::namespace('Admin')->group(function () {
         ## PROJECT ##
-        Route::resource('/project', 'ProjectController')->except(['show']);
+        Route::middleware('role:web-developer')->resource('/project', 'ProjectController')->except(['show']);
         ## TASK ##
         Route::resource('/task', 'TaskController')->except(['show']);
         ## USER ##
-        Route::get('/user', 'UserController')->name('users');
+        Route::resource('/user', 'UserController');
         #
         Route::get('/admin', function () {
             return view('layouts.admin.index'); })->name('admin');

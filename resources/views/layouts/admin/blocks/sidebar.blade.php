@@ -92,7 +92,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="{{route('users')}}" class="nav-link">
+                <a href="{{route('user.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-table"></i>
                     <p>Список пользователей</p>
                 </a>

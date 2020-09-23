@@ -19,4 +19,12 @@ class FlashMassageService
     {
         request()->session()->flash('successUpdate', true);
     }
+
+    /**
+     *  Flesh massage: user doesn't have access
+     */
+    public function setAccessDenied()
+    {
+        request()->session()->flash('accessDenied', true);
+    }
 }

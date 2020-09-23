@@ -29,6 +29,14 @@ trait HasRolesAndPermissions
      */
     public function hasRole($roles)
     {
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if ($this->roles->contains('slug', $role)) {
+                    return true;
+                }
+            }
+        }
+
         if ($this->roles->contains('slug', $roles)) {
             return true;
         }
