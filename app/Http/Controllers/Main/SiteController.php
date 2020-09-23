@@ -23,13 +23,6 @@ class SiteController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-//        var_dump($user->hasRole('web-developer')); //вернёт true
-//        var_dump($user->hasRole('project-manager')); //вернёт false
-//        var_dump($user->givePermissionsTo('web-developer'));
-//        var_dump($user->hasPermission('manage-users')); //вернёт true
-//          dd($user->can('create-tasks')); // вернёт true
-//        dd();
         return view('site.index', [
             'projects' => $this->projectQuery->get()
         ]);

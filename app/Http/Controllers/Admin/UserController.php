@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\SendMessageRole;
 use App\Http\Controllers\Controller;
+use App\Listeners\SendMessageChangeRole;
 use App\Model\Admin\User;
 use App\Model\Permission;
 use App\Model\Role;
@@ -39,6 +41,7 @@ class UserController extends Controller
 
     public function update(Request $request, int $id)
     {
+        event(new SendMessageRole());
         $user = User::find($id);
         $user->roles()->sync($request->only('role'));
         $request = $request->only('permissions');

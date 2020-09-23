@@ -1,6 +1,7 @@
 @extends('layouts.site.index')
 
 @section('content')
+    @role('web-developer')
     <div class="card-body p-0">
         <table class="table">
             <thead>
@@ -12,6 +13,7 @@
             </tr>
             </thead>
             <tbody>
+
             @foreach($projects as $project)
                 <tr>
                     <td><a>{{$project->name}}</a></td>
@@ -19,16 +21,10 @@
                     <td><a href="{{route('taskList',['id' => $project->id, 'status' => 'progress'])}}" class="btn btn-sm btn-warning">Смотреть список</a></td>
                     <td><a href="{{route('taskList',['id' => $project->id, 'status' => 'done'])}}" class="btn btn-sm btn-danger">Смотреть список</a></td>
             @endforeach
+
             </tbody>
         </table>
         {{$projects->render()}}
     </div>
-
-    @role(['project-manager','dghgdh'])
-    Project Manager Panel
-    @endrole
-
-    @role(['web-developer'])
-    Web Developer Panel
     @endrole
 @endsection
