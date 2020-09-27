@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\SendMessageRole;
 use App\Http\Controllers\Controller;
-use App\Listeners\SendMessageChangeRole;
 use App\Model\Admin\User;
 use App\Model\Permission;
 use App\Model\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -41,7 +38,7 @@ class UserController extends Controller
 
     public function update(Request $request, int $id)
     {
-        event(new SendMessageRole());
+        // event(new SendMessageRole()); раскоментируйте для отправки уведомления на почту - что роль сменили
         $user = User::find($id);
         $user->roles()->sync($request->only('role'));
         $request = $request->only('permissions');

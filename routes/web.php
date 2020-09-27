@@ -7,11 +7,11 @@ Auth::routes();
 ## LOGOUT ##
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     ## ADMIN ##
     Route::namespace('Admin')->group(function () {
         ## PROJECT ##
-        Route::middleware('role:web-developer')->resource('/project', 'ProjectController')->except(['show']);
+        Route::middleware('role:admin', 'role:moderator')->resource('/project', 'ProjectController')->except(['show']);
         ## TASK ##
         Route::resource('/task', 'TaskController')->except(['show']);
         ## USER ##

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\SendMessageRole;
+use App\Mail\ChangeRole;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,6 @@ class SendMessageChangeRole
      */
     public function handle(SendMessageRole $event)
     {
-        Mail::to(Auth::user())->send();
+        Mail::to(Auth::user()->email)->send(new ChangeRole());
     }
 }

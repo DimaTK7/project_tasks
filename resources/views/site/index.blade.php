@@ -1,7 +1,6 @@
 @extends('layouts.site.index')
 
 @section('content')
-    @role('web-developer')
     <div class="card-body p-0">
         <table class="table">
             <thead>
@@ -26,5 +25,4 @@
         </table>
         {{$projects->render()}}
     </div>
-    @endrole
 @endsection
